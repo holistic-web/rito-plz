@@ -1,6 +1,6 @@
 # Rito Plz
 
-A tool to help a player improve in League of Legends.
+A tool to help a player improve in [League of Legends](https://euw.leagueoflegends.com/en-gb/).
 
 ## Structure:
 

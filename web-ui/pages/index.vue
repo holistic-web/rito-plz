@@ -1,6 +1,9 @@
 <template>
-  <div class="app">
-    <h1>rito-plz</h1>
+  <div class="App">
+    <top-bar />
+    <section class="App__landing">
+      <h1>rito-plz</h1>
+    </section>
   </div>
 </template>
 
@@ -11,11 +14,13 @@ export default Vue.extend({})
 </script>
 
 <style lang="scss">
-.app {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+.App {
+  &__landing {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>
