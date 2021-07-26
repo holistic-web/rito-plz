@@ -3,24 +3,55 @@
     <b-navbar-brand href="#" class="TopBar__brand"> RitoPlz </b-navbar-brand>
 
     <b-nav>
-      <b-nav-item-dropdown text="Account" right>
-        <b-dropdown-item href="#">Profile</b-dropdown-item>
+      <b-nav-item-dropdown
+        v-if="isLoggedIn"
+        class="TopBar__nav"
+        text="Account"
+        right
+      >
+        <b-dropdown-item href="#"> Profile </b-dropdown-item>
         <!-- #TODO: add link to profile page -->
-        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        <!-- #TODO: add signout functionality  -->
+        <b-dropdown-item @click="onSignOutClick"> Sign Out </b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
   </b-navbar>
 </template>
 
+<script lang="ts">
+import Vue from 'vue'
+import { mapGetters, mapActions } from 'vuex'
+
+export default Vue.extend({
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'account/isLoggedIn',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      signOut: 'account/signOut',
+    }),
+    onSignOutClick() {
+      this.$fire.auth.signOut()
+    },
+  },
+})
+</script>
+
 <style lang="scss">
+$textColor: white;
+
 .TopBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   &__brand {
-    color: white !important;
+    color: $textColor !important;
+  }
+
+  &__nav > a {
+    color: $textColor !important;
   }
 }
 </style>

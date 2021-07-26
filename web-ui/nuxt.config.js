@@ -20,6 +20,10 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  router: {
+    middleware: ['auth'],
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
@@ -33,6 +37,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/firebase',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,11 +46,32 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // https://firebase.nuxtjs.org/guide/getting-started
+    '@nuxtjs/firebase',
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDSzoXPEEylkZnhstjJbnO9Or2FCQ8bbsY',
+      authDomain: 'ritoplz.firebaseapp.com',
+      projectId: 'ritoplz',
+      storageBucket: 'ritoplz.appspot.com',
+      messagingSenderId: '919327470946',
+      appId: '1:919327470946:web:9f2e31fca4971069fd283b',
+      measurementId: 'G-61S95ZZ688',
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'account/onAuthStateChanged',
+        },
+      },
+    },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+    // Axios module configuration: https://go.nuxtjs.dev/config-axios
+    axios: {},
+
+    // Build Configuration: https://go.nuxtjs.dev/config-build
+    build: {},
+  },
 }

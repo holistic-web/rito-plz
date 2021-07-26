@@ -9,11 +9,11 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
     'prettier',
-    'plugin:vue/recommended',
   ],
   plugins: [],
   // add your custom rules here
   rules: {
-    'vue/singleline-html-element-content-newline': 'off',
+    quotes: [2, 'single', { avoidEscape: true }],
+    'vue/singleline-html-element-content-newline': 0,
   },
 }
