@@ -73,8 +73,8 @@ The following workflows (found in `.github/workflows`) run on this project:
 
 ### `lint_web-ui`
 
-Runs against all branches but `main` and runs `npm run lint` and `npm run build` to check that the project conforms to standards and compiles succesfully.
+Runs against all branches but `main` and runs `npm run lint` and `npm run generate` to check that the project conforms to standards and compiles succesfully.
 
 ### `deploy_web-ui`
 
-Only runs against `main` and deploys the site to firebase using the `npm run build` and `firebase deploy --only hosting` commands.
+Only runs against `main` and deploys the site to firebase using the `npm run generate` and `firebase deploy --only hosting` commands.

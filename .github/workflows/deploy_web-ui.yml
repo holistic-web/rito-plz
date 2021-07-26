@@ -42,7 +42,7 @@ jobs:
       - name: Build project 🏗️
         run: |
           cd web-ui
-          npm run build
+          npm run generate
 
       - name: Deploy to Firebase 🔥
         uses: w9jds/firebase-action@master
