@@ -5,6 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
+    'standard',
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
     'prettier',
@@ -12,5 +13,7 @@ module.exports = {
   ],
   plugins: [],
   // add your custom rules here
-  rules: {},
+  rules: {
+    'vue/singleline-html-element-content-newline': 'off',
+  },
 }
