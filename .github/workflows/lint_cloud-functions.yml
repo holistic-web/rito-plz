@@ -3,7 +3,7 @@ name: lint_cloud-functions
 on:
   push:
     branches-ignore:
-      - master
+      - main
     paths:
       - 'cloud-functions/**'
 

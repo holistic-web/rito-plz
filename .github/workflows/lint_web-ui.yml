@@ -3,7 +3,7 @@ name: lint_web-ui
 on:
   push:
     branches-ignore:
-      - master
+      - main
     paths:
       - 'web-ui/**'
 

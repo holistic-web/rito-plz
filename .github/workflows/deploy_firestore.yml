@@ -3,7 +3,7 @@ name: deploy_firestore
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'firestore/**'
 

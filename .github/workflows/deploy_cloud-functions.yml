@@ -3,7 +3,7 @@ name: deploy_cloud-functions
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'cloud-functions/**'
 
