@@ -20,6 +20,10 @@ export default Vue.extend({})
     min-height: 100vh;
     justify-content: center;
     align-items: center;
+
+    // only use this while it's a holding page, this makes it full screen
+    position: absolute;
+    top: 0;
   }
 }
 </style>
