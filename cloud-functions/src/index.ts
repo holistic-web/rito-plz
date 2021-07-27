@@ -1,6 +1,8 @@
 import * as functions from 'firebase-functions'
 const admin = require('firebase-admin')
 
+import ritoApi from './rito-api'
+
 admin.initializeApp(functions.config().firebase)
 
 // Start writing Firebase Functions
@@ -17,3 +19,5 @@ exports.onAccountCreation = functions.auth.user().onCreate(async (user) => {
     summoners: [],
   })
 })
+
+exports.ritoApi = functions.https.onRequest(ritoApi)
