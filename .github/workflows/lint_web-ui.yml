@@ -1,11 +1,11 @@
-name: ci_web-ui
+name: lint_web-ui
 
 on:
   push:
     branches-ignore:
       - master
     paths:
-      - "web-ui/**"
+      - 'web-ui/**'
 
 jobs:
   ci:

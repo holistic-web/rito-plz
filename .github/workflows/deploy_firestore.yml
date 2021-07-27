@@ -1,11 +1,11 @@
-name: deploy_web-ui
+name: deploy_firestore
 
 on:
   push:
     branches:
-      - main
+      - master
     paths:
-      - 'web-ui/**'
+      - 'firestore/**'
 
 jobs:
   ci:
@@ -34,20 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies 👨🏻‍💻
-        run: |
-          cd web-ui
-          npm ci --prefer-offline --no-audit
-
-      - name: Build project 🏗️
-        run: |
-          cd web-ui
-          npm run generate
-
-      - name: Deploy to Firebase 🔥
+      - name: Deploy Firestore rules and indexes 🔥
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only firestore
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: 'web-ui'

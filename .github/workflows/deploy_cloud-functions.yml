@@ -1,11 +1,11 @@
-name: deploy_web-ui
+name: deploy_cloud-functions
 
 on:
   push:
     branches:
-      - main
+      - master
     paths:
-      - 'web-ui/**'
+      - 'cloud-functions/**'
 
 jobs:
   ci:
@@ -36,18 +36,12 @@ jobs:
 
       - name: Install dependencies 👨🏻‍💻
         run: |
-          cd web-ui
+          cd cloud-functions
           npm ci --prefer-offline --no-audit
 
-      - name: Build project 🏗️
-        run: |
-          cd web-ui
-          npm run generate
-
-      - name: Deploy to Firebase 🔥
+      - name: Deploy to Firebase 🔥 (lint and build are included in the deployment)
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: 'web-ui'
