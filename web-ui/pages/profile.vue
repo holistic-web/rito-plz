@@ -1,25 +1,66 @@
 <template>
-  <div class="App">
-    <section class="App__landing">
-      <h1>rito-plz</h1>
-    </section>
-  </div>
+  <section class="Profile">
+    <b-container>
+      <h1>Profile</h1>
+      <b-alert :show="accountNeedsSetup" variant="danger">
+        You need to associate a Summoner account
+      </b-alert>
+      <b-form-input
+        v-model="editedSummonerId"
+        class="Profile__summonerInput"
+        placeholder="Enter your Summoner name"
+      />
+      <b-btn
+        variant="primary"
+        :disabled="isSubmitting"
+        @click="onUpdateClick"
+        v-text="'Update'"
+      />
+    </b-container>
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
-export default Vue.extend({})
+export default Vue.extend({
+  data: () => ({
+    isSubmitting: false,
+    editedSummonerId: null,
+  }),
+  computed: {
+    ...mapGetters({
+      user: 'account/user',
+    }),
+    accountNeedsSetup() {
+      return !this.user.summonerId
+    },
+  },
+  watch: {
+    user: {
+      immediate: true,
+      handler() {
+        this.editedSummonerId = this.user.summonerId
+      },
+    },
+  },
+  methods: {
+    async onUpdateClick() {
+      this.isSubmitting = true
+      await alert('not yet implemented')
+      this.isSubmitting = false
+    },
+  },
+})
 </script>
 
 <style lang="scss">
-.App {
-  &__landing {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
+.Profile {
+  margin: 2rem 0;
+
+  &__summonerInput {
+    margin-bottom: 1rem;
   }
 }
 </style>
