@@ -36,6 +36,7 @@ export default Vue.extend({
       user: 'account/user',
     }),
     accountNeedsSetup() {
+      if (!this.user) return false
       return !this.user.summonerId
     },
   },
@@ -43,6 +44,7 @@ export default Vue.extend({
     user: {
       immediate: true,
       handler() {
+        if (!this.user) return
         this.editedSummonerId = this.user.summonerId
       },
     },
