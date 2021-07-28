@@ -1,6 +1,7 @@
 <template>
   <section class="Profile">
-    <b-container>
+    <b-spinner v-if="isLoading" variant="primary" class="Profile__loader" />
+    <b-container v-else>
       <h1>Profile</h1>
       <b-alert :show="accountNeedsSetup" variant="danger">
         You need to associate a Summoner account
@@ -22,10 +23,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default Vue.extend({
   data: () => ({
+    isLoading: false,
     isSubmitting: false,
     editedSummonerId: null,
   }),
@@ -45,11 +47,22 @@ export default Vue.extend({
       },
     },
   },
+  created() {
+    this.fetch()
+  },
   methods: {
+    ...mapActions({
+      fetchUser: 'account/fetchUser',
+    }),
     async onUpdateClick() {
       this.isSubmitting = true
       await alert('not yet implemented')
       this.isSubmitting = false
+    },
+    async fetch() {
+      this.isLoading = true
+      await this.fetchUser({ id: this.user.uid })
+      this.isLoading = false
     },
   },
 })
@@ -58,6 +71,13 @@ export default Vue.extend({
 <style lang="scss">
 .Profile {
   margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+
+  &__loader {
+    width: 3rem;
+    height: 3rem;
+  }
 
   &__summonerInput {
     margin-bottom: 1rem;
