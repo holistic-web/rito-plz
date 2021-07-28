@@ -54,7 +54,7 @@ export const actions: ActionTree<RootState, RootState> = {
       if (!userRecord) throw new Error('User record does not exist')
       const user = {
         email: userRecord.email,
-        summonerId: userRecord.summoners,
+        summonerId: userRecord.summonerId,
         uid: userRecord.uid,
       }
       commit('SET_USER', { ...user, uid: id })
