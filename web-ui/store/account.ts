@@ -3,7 +3,7 @@ import firebase from 'firebase'
 interface User {
   uid: string
   email: string
-  summoners: [string]
+  summonerId: string
 }
 
 interface AccountState {
@@ -23,7 +23,7 @@ export const getters: GetterTree<RootState, RootState> = {
     if (!state.user) return false
     return state.user.uid !== null
   },
-  user: (state: AccountState) => state.user,
+  user: (state: AccountState): User | undefined => state.user,
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -46,19 +46,19 @@ export const actions: ActionTree<RootState, RootState> = {
     this.$router.push('/login')
   },
 
-  async fetchUser({ commit }, { id } = {}) {
+  async fetchUser({ commit }, { id } = {}): Promise<User> {
     const userRef = this.$fire.firestore.collection('users').doc(id)
     const userSnapshot = await userRef.get()
     if (userSnapshot.exists) {
       const userRecord = userSnapshot.data()
       if (!userRecord) throw new Error('User record does not exist')
-      console.log('userRecord: ', userRecord)
       const user = {
         email: userRecord.email,
         summonerId: userRecord.summoners,
         uid: userRecord.uid,
       }
       commit('SET_USER', { ...user, uid: id })
+      return user
     } else {
       throw new Error('User does not exist')
     }
@@ -66,7 +66,7 @@ export const actions: ActionTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-  SET_USER: (state: AccountState, user: User) => {
+  SET_USER: (state: AccountState, user: User | undefined) => {
     state.user = user
   },
 }
