@@ -29,10 +29,10 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions({
-      signOut: 'account/signOut',
+      logOut: 'account/logOut',
     }),
     onSignOutClick() {
-      this.$fire.auth.signOut()
+      this.logOut()
     },
   },
 })

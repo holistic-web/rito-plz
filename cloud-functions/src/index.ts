@@ -14,6 +14,6 @@ exports.onAccountCreation = functions.auth.user().onCreate(async (user) => {
   const usersCollection = admin.firestore().collection('users')
   await usersCollection.doc(uid).set({
     email: email,
-    summoners: [],
+    summonerId: null,
   })
 })
