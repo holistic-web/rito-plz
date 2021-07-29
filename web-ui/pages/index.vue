@@ -16,6 +16,5 @@ export default Vue.extend({})
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
 }
 </style>
