@@ -14,12 +14,8 @@ export default Vue.extend({})
 .Home {
   display: flex;
   width: 100%;
-  min-height: 100vh;
   justify-content: center;
   align-items: center;
-
-  // only use this while it's a holding page, this makes it full screen
-  position: absolute;
-  top: 0;
+  margin: 1rem;
 }
 </style>
