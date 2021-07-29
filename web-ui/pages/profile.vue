@@ -50,7 +50,7 @@ export default Vue.extend({
     },
   },
   created() {
-    this.fetch()
+    ;(this as any).fetchData()
   },
   methods: {
     ...mapActions({
@@ -61,9 +61,9 @@ export default Vue.extend({
       await alert('not yet implemented')
       this.isSubmitting = false
     },
-    async fetch() {
+    async fetchData() {
       this.isLoading = true
-      await this.fetchUser({ id: this.user.uid })
+      await (this as any).fetchUser({ id: this.user.uid })
       this.isLoading = false
     },
   },
