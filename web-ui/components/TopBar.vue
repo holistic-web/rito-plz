@@ -1,6 +1,8 @@
 <template>
   <b-navbar class="TopBar" variant="dark">
-    <b-navbar-brand href="#" class="TopBar__brand"> RitoPlz </b-navbar-brand>
+    <b-navbar-brand class="TopBar__brand">
+      <nuxt-link to="/">RitoPlz</nuxt-link>
+    </b-navbar-brand>
 
     <b-nav>
       <b-nav-item-dropdown
@@ -9,9 +11,10 @@
         text="Account"
         right
       >
-        <b-dropdown-item href="#"> Profile </b-dropdown-item>
-        <!-- #TODO: add link to profile page -->
-        <b-dropdown-item @click="onSignOutClick"> Sign Out </b-dropdown-item>
+        <b-dropdown-item>
+          <nuxt-link to="/profile">Profile</nuxt-link>
+        </b-dropdown-item>
+        <b-dropdown-item @click="onSignOutClick">Sign Out</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
   </b-navbar>
@@ -46,12 +49,17 @@ $textColor: white;
   flex-direction: row;
   justify-content: space-between;
 
-  &__brand {
+  &__brand a {
     color: $textColor !important;
   }
 
-  &__nav > a {
+  &__nav a {
     color: $textColor !important;
+  }
+
+  .dropdown-item,
+  .dropdown-item a {
+    color: black !important;
   }
 }
 </style>
