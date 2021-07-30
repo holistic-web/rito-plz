@@ -18,7 +18,7 @@ router.put('/account/me', async (req: any, res) => {
   }
 
   const userRef = admin.firestore().collection('users').doc(uid)
-  const result = userRef.update(update)
+  const result = await userRef.update(update)
   res.json(result)
 })
 
