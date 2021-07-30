@@ -1,5 +1,5 @@
-const admin = require('firebase-admin')
 import { User } from '../../../firestore/types'
+const admin = require('firebase-admin')
 
 const onAccountCreation = async (user: any, event: any) => {
   const uid = user.uid
