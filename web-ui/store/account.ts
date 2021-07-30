@@ -1,10 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
-interface User {
-  uid: string
-  email: string
-  summonerId: string
-}
+import { User } from '../../firestore/types'
 
 interface AccountState {
   user?: User
