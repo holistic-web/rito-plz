@@ -19,12 +19,7 @@ _Can you we fill out the command line instructions here?_
    ```
    firebase emulators:start --only functions
    ```
-
-2. profit?
-   ```
-   echo "AndrewIsANoob"
-   ```
-
+   
 The http functions will then be available at `localhost:5001/ritoplz/us-central1/{function name}`, eg:
 
 ```
