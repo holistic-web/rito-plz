@@ -10,8 +10,8 @@ interface AccountState {
   user?: User
 }
 
-export const state = () => {
-  return <AccountState>{
+export const state = (): AccountState => {
+  return {
     user: undefined,
   }
 }
