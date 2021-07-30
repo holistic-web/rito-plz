@@ -1,14 +1,9 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
-
-interface User {
-  uid: string
-  email: string
-}
+import { User } from '../../firestore/types'
 
 interface AccountState {
   user?: User
-  idToken?: string
 }
 
 export const state = () => {
@@ -24,15 +19,16 @@ export const getters: GetterTree<RootState, RootState> = {
     if (!state.user) return false
     return state.user.uid !== null
   },
+  user: (state: AccountState): User | undefined => state.user,
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async onAuthStateChanged({ commit }, { authUser }) {
-    commit('SET_USER', authUser)
+  async onAuthStateChanged({ commit, dispatch }, { authUser }) {
     if (authUser) {
-      const idToken = await authUser.getIdToken(true)
-      commit('SET_ID_TOKEN', idToken)
+      await dispatch('fetchUser', { id: authUser.uid })
       this.$router.push('/')
+    } else {
+      commit('SET_USER', undefined)
     }
   },
 
@@ -43,18 +39,30 @@ export const actions: ActionTree<RootState, RootState> = {
 
   async logOut() {
     await this.$fire.auth.signOut()
+    this.$router.push('/login')
+  },
+
+  async fetchUser({ commit }, { id } = {}): Promise<User> {
+    const userRef = this.$fire.firestore.collection('users').doc(id)
+    const userSnapshot = await userRef.get()
+    if (userSnapshot.exists) {
+      const userRecord = userSnapshot.data()
+      if (!userRecord) throw new Error('User record does not exist')
+      const user = {
+        email: userRecord.email,
+        summonerId: userRecord.summonerId,
+        uid: userRecord.uid,
+      }
+      commit('SET_USER', { ...user, uid: id })
+      return user
+    } else {
+      throw new Error('User does not exist')
+    }
   },
 }
 
 export const mutations: MutationTree<RootState> = {
-  SET_USER: (state: AccountState, authUser: User) => {
-    if (authUser) {
-      const { uid, email } = authUser
-      state.user = { uid, email }
-    } else {
-      state.user = undefined
-    }
+  SET_USER: (state: AccountState, user: User | undefined) => {
+    state.user = user
   },
-  SET_ID_TOKEN: (state: AccountState, idToken: string) =>
-    (state.idToken = idToken),
 }

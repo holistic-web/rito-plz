@@ -21,7 +21,11 @@ export default {
   },
 
   router: {
-    middleware: ['auth'],
+    middleware: ['auth', 'accountSetup'],
+  },
+
+  auth: {
+    redirect: { home: false },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -66,6 +70,7 @@ export default {
           onAuthStateChangedAction: 'account/onAuthStateChanged',
         },
       },
+      firestore: true,
     },
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
