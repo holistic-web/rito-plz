@@ -58,6 +58,7 @@ export default Vue.extend({
     }),
     async onUpdateClick() {
       this.isSubmitting = true
+      // TODO: implement the logic to update a user's account
       await alert('not yet implemented')
       this.isSubmitting = false
     },
