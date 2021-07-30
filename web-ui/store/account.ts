@@ -4,11 +4,13 @@ import { User } from '../../firestore/types'
 
 interface AccountState {
   user?: User
+  idToken?: string
 }
 
 export const state = () => {
   return <AccountState>{
     user: undefined,
+    idToken: undefined,
   }
 }
 
@@ -20,11 +22,16 @@ export const getters: GetterTree<RootState, RootState> = {
     return state.user.uid !== null
   },
   user: (state: AccountState): User | undefined => state.user,
+  idToken: (state: AccountState): string | undefined => state.idToken,
 }
 
 export const actions: ActionTree<RootState, RootState> = {
   async onAuthStateChanged({ commit, dispatch }, { authUser }) {
     if (authUser) {
+      const idToken = await authUser.getIdToken()
+      // logging the id token is useful for testing locally
+      console.log('idToken: ', idToken) // eslint-disable-line no-console
+      commit('SET_ID_TOKEN', idToken)
       await dispatch('fetchUser', { id: authUser.uid })
       this.$router.push('/')
     } else {
@@ -64,5 +71,8 @@ export const actions: ActionTree<RootState, RootState> = {
 export const mutations: MutationTree<RootState> = {
   SET_USER: (state: AccountState, user: User | undefined) => {
     state.user = user
+  },
+  SET_ID_TOKEN: (state: AccountState, idToken: string | undefined) => {
+    state.idToken = idToken
   },
 }
