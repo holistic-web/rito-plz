@@ -1,14 +1,12 @@
 <template>
-  <div class="App">
-    <section class="App__landing">
-      <b-btn
-        size="lg"
-        :disabled="isSubmitting"
-        @click="onLoginClick"
-        v-text="'Login'"
-      />
-    </section>
-  </div>
+  <section class="Login">
+    <b-btn
+      size="lg"
+      :disabled="isSubmitting"
+      @click="onLoginClick"
+      v-text="'Login'"
+    />
+  </section>
 </template>
 
 <script lang="ts">
@@ -33,13 +31,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.App {
-  &__landing {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-  }
+.Login {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 </style>
