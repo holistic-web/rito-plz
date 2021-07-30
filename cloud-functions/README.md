@@ -12,9 +12,7 @@ This folder defines the cloud functions we have set up in Firebase.
 First you'll want to ensure you have the firebase local emulators configured:
 https://firebase.google.com/docs/functions/local-emulator#web-v8
 
-_Can you we fill out the command line instructions here?_
-
-1. run the functions emulator:
+Run the functions emulator:
 
    ```
    firebase emulators:start --only functions
