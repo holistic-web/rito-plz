@@ -1,8 +1,7 @@
 import * as functions from 'firebase-functions'
-const admin = require('firebase-admin')
-
 import onAccountCreation from './eventHandlers/onAccountCreation'
 import ritoApi from './rito-api'
+const admin = require('firebase-admin')
 
 admin.initializeApp(functions.config().firebase)
 
