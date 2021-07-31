@@ -28,7 +28,6 @@ router.put('/me', async (req: any, res, next) => {
     const result = await userRef.update(update)
     res.json(result)
   } catch (err) {
-    console.log('err: ', err)
     next(err)
   }
 })
