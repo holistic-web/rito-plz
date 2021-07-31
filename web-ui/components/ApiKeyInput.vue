@@ -32,7 +32,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions({
-      updateApiKey: 'server/updateApiKey',
+      updateApiKey: 'admin/updateApiKey',
     }),
     async onUpdateClick() {
       this.isSubmitting = true
