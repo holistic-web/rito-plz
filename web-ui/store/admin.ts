@@ -8,7 +8,7 @@ interface AdminState {
 
 export const state = () => {
   return <AdminState>{
-    isApiKeyValid: false,
+    isApiKeyValid: true,
   }
 }
 
