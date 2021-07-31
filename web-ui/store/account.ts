@@ -81,10 +81,10 @@ export const actions: ActionTree<RootState, RootState> = {
     } catch (err) {
       if (err.code === 403)
         return dispatch('admin/invalidateApiKey', { root: true })
-      console.error(err) // eslint-disable-line no-console
+      alert(err)
       return
     }
-    await dispatch('fetchUser')
+    await dispatch('fetchUser', { id: getters.user.uid })
     return result
   },
 }
