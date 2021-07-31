@@ -79,6 +79,7 @@ export const actions: ActionTree<RootState, RootState> = {
         },
       })
     } catch (err) {
+      console.log('err: ', err.code) // eslint-disable-line no-console
       if (err.code === 403)
         return dispatch('admin/invalidateApiKey', { root: true })
       alert(err)
