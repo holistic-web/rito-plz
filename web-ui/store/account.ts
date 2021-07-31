@@ -9,8 +9,8 @@ interface AccountState {
   idToken?: string
 }
 
-export const state = () => {
-  return <AccountState>{
+export const state = (): AccountState => {
+  return {
     user: undefined,
     idToken: undefined,
   }
@@ -79,6 +79,8 @@ export const actions: ActionTree<RootState, RootState> = {
         },
       })
     } catch (err) {
+      if (err.code === 403)
+        return dispatch('admin/invalidateApiKey', { root: true })
       console.error(err) // eslint-disable-line no-console
       return
     }
