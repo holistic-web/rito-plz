@@ -1,3 +1,3 @@
 export default {
-  apiBase: '//us-central1-ritoplz>.cloudfunctions.net/ritoApi',
+  apiBase: 'https://us-central1-ritoplz.cloudfunctions.net/ritoApi',
 }
