@@ -1,5 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
+import axios from 'axios'
+import config from '../config'
 import { User } from '../../firestore/types'
 
 interface AccountState {
@@ -65,6 +67,23 @@ export const actions: ActionTree<RootState, RootState> = {
     } else {
       throw new Error('User does not exist')
     }
+  },
+
+  async updateUser({ dispatch, getters }, { update }): Promise<any> {
+    const idToken = getters.idToken
+    let result
+    try {
+      await axios.put(`${config.apiBase}/account/me`, update, {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      })
+    } catch (err) {
+      console.error(err) // eslint-disable-line no-console
+      return
+    }
+    await dispatch('fetchUser')
+    return result
   },
 }
 
