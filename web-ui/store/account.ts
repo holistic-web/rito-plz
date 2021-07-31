@@ -79,9 +79,7 @@ export const actions: ActionTree<RootState, RootState> = {
         },
       })
     } catch (err) {
-      console.log('err: ', err) // eslint-disable-line no-console
-      console.log(JSON.stringify(err))
-      if (err.code === 403)
+      if (err.message === 'Request failed with status code 403')
         return dispatch('admin/invalidateApiKey', { root: true })
       alert(err)
       return
