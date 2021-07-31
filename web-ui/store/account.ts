@@ -79,6 +79,9 @@ export const actions: ActionTree<RootState, RootState> = {
         },
       })
     } catch (err) {
+      console.log('err.message: ', err.message)
+      console.log('err.response: ', err.response)
+      console.log(JSON.stringify(err))
       if (err.message === 'Request failed with status code 403')
         return dispatch('admin/invalidateApiKey', { root: true })
       alert(err)
