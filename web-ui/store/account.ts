@@ -1,18 +1,18 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
-interface User {
-  uid: string
-  email: string
-  summonerId: string
-}
+import axios from 'axios'
+import config from '../config'
+import { User } from '../../firestore/types'
 
 interface AccountState {
   user?: User
+  idToken?: string
 }
 
 export const state = (): AccountState => {
   return {
     user: undefined,
+    idToken: undefined,
   }
 }
 
@@ -24,11 +24,16 @@ export const getters: GetterTree<RootState, RootState> = {
     return state.user.uid !== null
   },
   user: (state: AccountState): User | undefined => state.user,
+  idToken: (state: AccountState): string | undefined => state.idToken,
 }
 
 export const actions: ActionTree<RootState, RootState> = {
   async onAuthStateChanged({ commit, dispatch }, { authUser }) {
     if (authUser) {
+      const idToken = await authUser.getIdToken()
+      // logging the id token is useful for testing locally
+      console.log('idToken: ', idToken) // eslint-disable-line no-console
+      commit('SET_ID_TOKEN', idToken)
       await dispatch('fetchUser', { id: authUser.uid })
       this.$router.push('/')
     } else {
@@ -63,10 +68,30 @@ export const actions: ActionTree<RootState, RootState> = {
       throw new Error('User does not exist')
     }
   },
+
+  async updateUser({ dispatch, getters }, { update }): Promise<any> {
+    const idToken = getters.idToken
+    let result
+    try {
+      await axios.put(`${config.apiBase}/account/me`, update, {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      })
+    } catch (err) {
+      console.error(err) // eslint-disable-line no-console
+      return
+    }
+    await dispatch('fetchUser')
+    return result
+  },
 }
 
 export const mutations: MutationTree<RootState> = {
   SET_USER: (state: AccountState, user: User | undefined) => {
     state.user = user
+  },
+  SET_ID_TOKEN: (state: AccountState, idToken: string | undefined) => {
+    state.idToken = idToken
   },
 }

@@ -1,4 +1,6 @@
 import * as functions from 'firebase-functions'
+import onAccountCreation from './eventHandlers/onAccountCreation'
+import ritoApi from './rito-api'
 const admin = require('firebase-admin')
 
 admin.initializeApp(functions.config().firebase)
@@ -6,14 +8,5 @@ admin.initializeApp(functions.config().firebase)
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
 
-exports.onAccountCreation = functions.auth.user().onCreate(async (user) => {
-  const uid = user.uid
-
-  const email = user.email
-
-  const usersCollection = admin.firestore().collection('users')
-  await usersCollection.doc(uid).set({
-    email: email,
-    summonerId: null,
-  })
-})
+exports.onAccountCreation = functions.auth.user().onCreate(onAccountCreation)
+exports.ritoApi = functions.https.onRequest(ritoApi)

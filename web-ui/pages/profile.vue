@@ -55,10 +55,12 @@ export default Vue.extend({
   methods: {
     ...mapActions({
       fetchUser: 'account/fetchUser',
+      updateUser: 'account/updateUser',
     }),
     async onUpdateClick() {
       this.isSubmitting = true
-      await alert('not yet implemented')
+      const update = { summonerId: this.editedSummonerId }
+      await (this as any).updateUser({ update })
       this.isSubmitting = false
     },
     async fetchData() {

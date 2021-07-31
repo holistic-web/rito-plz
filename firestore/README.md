@@ -1,6 +1,6 @@
 # Firestore
 
-This folder defines the rules and indexes for the Firestore databae.
+This folder defines the rules and indexes for the Firestore database. It also defines the types for the Firestore database collections.
 
 ## CI & Deployment
 

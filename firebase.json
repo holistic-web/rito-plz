@@ -19,5 +19,13 @@
   "firestore": {
     "rules": "firestore/firestore.rules",
     "indexes": "firestore/firestore.indexes.json"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }
