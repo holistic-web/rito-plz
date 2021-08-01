@@ -23,7 +23,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const idToken = rootGetters['account/idToken']
     try {
       const { data: result } = await axios.get(
-        `${config.apiBase}/riot/servers`,
+        `${config.apiBase}/rito/servers`,
         {
           headers: {
             Authorization: `Bearer ${idToken}`,
