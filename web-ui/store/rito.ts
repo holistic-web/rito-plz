@@ -2,12 +2,12 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import axios from 'axios'
 import config from '../config'
 
-interface RiotState {
+interface RitoState {
   servers: Array<string>
 }
 
 export const state = () => {
-  return <RiotState>{
+  return <RitoState>{
     servers: [],
   }
 }
@@ -15,7 +15,7 @@ export const state = () => {
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  servers: (state: RiotState): Array<string> => state.servers,
+  servers: (state: RitoState): Array<string> => state.servers,
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -38,7 +38,7 @@ export const actions: ActionTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-  SET_SERVERS: (state: RiotState, servers: Array<string>) => {
+  SET_SERVERS: (state: RitoState, servers: Array<string>) => {
     state.servers = servers
   },
 }

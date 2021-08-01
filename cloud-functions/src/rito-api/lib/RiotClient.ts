@@ -19,16 +19,19 @@ const REGIONS = [
 export default class RiotClient {
   public static Regions = REGIONS
 
-  private async getClient() {
-    const apiKeyRef = admin.database().ref('riot-api-key')
-    const snapshot = await apiKeyRef.get()
-    const apiKey = snapshot.val()
-    return new RiotAPI(apiKey)
+  private async getClient(apiKeyOverride: string = '') {
+    if (!apiKeyOverride) {
+      const apiKeyRef = admin.database().ref('riot-api-key')
+      const snapshot = await apiKeyRef.get()
+      const apiKey = snapshot.val()
+      return new RiotAPI(apiKey)
+    }
+    return new RiotAPI(apiKeyOverride)
   }
 
-  async getSummoner(region: string, summonerName: string) {
+  async getSummoner(region: string, summonerName: string, apiKeyOverride: string = '') {
     const regionCode = PlatformId[region.toUpperCase()]
-    const client = await this.getClient()
+    const client = await this.getClient(apiKeyOverride)
     return client.summoner.getBySummonerName({
       region: regionCode,
       summonerName,
