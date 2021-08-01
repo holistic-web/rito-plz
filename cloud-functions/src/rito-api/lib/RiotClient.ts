@@ -1,8 +1,23 @@
 const { RiotAPI, PlatformId } = require('@fightmegg/riot-api')
 const admin = require('firebase-admin')
 
+// TODO : add a way to get the region from riot instead of hard coding it
+const REGIONS = [
+  PlatformId.BR1,
+  PlatformId.EUNE1,
+  PlatformId.EUW1,
+  PlatformId.JP1,
+  PlatformId.KR,
+  PlatformId.LA1,
+  PlatformId.LA2,
+  PlatformId.NA1,
+  PlatformId.OC1,
+  PlatformId.RU,
+  PlatformId.TR1,
+]
+
 export default class RiotClient {
-  public static PlatformId = PlatformId
+  public static Regions = REGIONS
 
   async getClient(apiKeyOverride: string = '') {
     if (!apiKeyOverride) {
@@ -15,22 +30,11 @@ export default class RiotClient {
   }
 
   async getSummoner(region: string, summonerName: string, apiKeyOverride: string = '') {
-    const regionCode = RiotClient.PlatformId[region.toUpperCase()]
-    if (!apiKeyOverride) {
-      const client = await this.getClient()
-      return client.summoner.getBySummonerName({
-        region: regionCode,
-        summonerName,
-      })
-    }
+    const regionCode = PlatformId[region.toUpperCase()]
     const client = await this.getClient(apiKeyOverride)
     return client.summoner.getBySummonerName({
       region: regionCode,
       summonerName,
     })
-  }
-
-  async getServers() {
-    return RiotClient.PlatformId
   }
 }

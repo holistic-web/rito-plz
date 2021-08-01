@@ -6,14 +6,33 @@
       <b-alert :show="accountNeedsSetup" variant="danger">
         You need to associate a Summoner account
       </b-alert>
-      <b-form-input
-        v-model="editedSummonerId"
-        class="Profile__summonerInput"
-        placeholder="Enter your Summoner name"
-      />
+      <section class="Profile__summoner">
+        <b-form-group
+          label="Enter your summoner name"
+          label-for="Profile__summoner__id"
+          class="Profile__summoner__id"
+        >
+          <b-form-input
+            id="Profile__summoner__id"
+            v-model="editedSummonerId"
+            placeholder="BestTeemoEUW"
+          />
+        </b-form-group>
+        <b-form-group
+          label="Select your region"
+          label-for="Profile__summoner__region"
+        >
+          <b-form-select
+            id="Profile__summoner__region"
+            v-model="editedRegion"
+            :options="servers"
+            size="sm"
+          />
+        </b-form-group>
+      </section>
       <b-btn
         variant="primary"
-        :disabled="isSubmitting"
+        :disabled="isUpdateDisabled"
         @click="onUpdateClick"
         v-text="'Update'"
       />
@@ -30,14 +49,27 @@ export default Vue.extend({
     isLoading: false,
     isSubmitting: false,
     editedSummonerId: null,
+    editedRegion: null,
   }),
   computed: {
     ...mapGetters({
       user: 'account/user',
+      servers: 'riot/servers',
     }),
     accountNeedsSetup() {
       if (!this.user) return false
       return !this.user.summonerId
+    },
+    isUpdateDisabled() {
+      if (this.isSubmitting) return true
+      if (!this.editedSummonerId) return true
+      if (!this.editedRegion) return true
+      if (
+        this.editedSummonerId === this.user.summonerId &&
+        this.editedRegion === this.user.region
+      )
+        return true
+      return false
     },
   },
   watch: {
@@ -46,6 +78,7 @@ export default Vue.extend({
       handler() {
         if (!this.user) return
         this.editedSummonerId = this.user.summonerId
+        this.editedRegion = this.user.region
       },
     },
   },
@@ -56,16 +89,23 @@ export default Vue.extend({
     ...mapActions({
       fetchUser: 'account/fetchUser',
       updateUser: 'account/updateUser',
+      getServers: 'riot/getServers',
     }),
     async onUpdateClick() {
       this.isSubmitting = true
-      const update = { summonerId: this.editedSummonerId }
+      const update = {
+        summonerId: this.editedSummonerId,
+        region: this.editedRegion,
+      }
       await (this as any).updateUser({ update })
       this.isSubmitting = false
     },
     async fetchData() {
       this.isLoading = true
-      await (this as any).fetchUser({ id: this.user.uid })
+      await Promise.all([
+        (this as any).fetchUser({ id: this.user.uid }),
+        (this as any).getServers(),
+      ])
       this.isLoading = false
     },
   },
@@ -83,8 +123,15 @@ export default Vue.extend({
     height: 3rem;
   }
 
-  &__summonerInput {
+  &__summoner {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__id {
+      width: 70%;
+    }
   }
 }
 </style>

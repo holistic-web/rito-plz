@@ -11,12 +11,12 @@ router.put('/me', async (req: any, res, next) => {
     const uid = req.user.uid
     const update: User = req.body
 
-    if (update.summonerId) {
+    if (update.summonerId || update.region) {
+      if (!(update.summonerId && update.region))
+        throw new Error('cannot update summonerId without a region')
+
       // throws a 404 if summoner doesn't exist
-      await riotClient.getSummoner(
-        RiotClient.PlatformId.EUW1,
-        update.summonerId
-      )
+      await riotClient.getSummoner(update.region, update.summonerId)
     }
 
     const userRef = admin.firestore().collection('users').doc(uid)
