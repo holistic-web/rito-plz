@@ -49,6 +49,7 @@ $textColor: white;
 
   &__brand a {
     color: $textColor !important;
+    text-decoration: none !important;
   }
 
   &__nav {
