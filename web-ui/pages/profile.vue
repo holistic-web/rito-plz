@@ -54,7 +54,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       user: 'account/user',
-      servers: 'riot/servers',
+      servers: 'rito/servers',
     }),
     accountNeedsSetup() {
       if (!this.user) return false
@@ -89,7 +89,7 @@ export default Vue.extend({
     ...mapActions({
       fetchUser: 'account/fetchUser',
       updateUser: 'account/updateUser',
-      getServers: 'riot/getServers',
+      getServers: 'rito/getServers',
     }),
     async onUpdateClick() {
       this.isSubmitting = true

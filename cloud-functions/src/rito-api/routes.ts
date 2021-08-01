@@ -1,9 +1,9 @@
 import AccountController from './modules/account'
 import AdminController from './modules/admin'
-import RiotController from './modules/riot'
+import RitoController from './modules/rito'
 
 export default {
   AccountController,
   AdminController,
-  RiotController,
+  RitoController,
 }
