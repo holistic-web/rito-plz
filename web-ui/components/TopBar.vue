@@ -11,9 +11,7 @@
         text="Account"
         right
       >
-        <nuxt-link to="/profile">
-          <b-dropdown-item> Profile </b-dropdown-item>
-        </nuxt-link>
+        <b-dropdown-item to="/profile"> Profile </b-dropdown-item>
         <b-dropdown-item @click="onSignOutClick">Sign Out</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
@@ -57,19 +55,15 @@ $textColor: white;
     a {
       color: $textColor !important;
     }
-
-    .dropdown-menu {
-      a li {
-        display: flex;
-        width: 100%;
-        text-decoration: none !important;
-      }
-    }
   }
 
   .dropdown-item,
   .dropdown-item a {
     color: black !important;
+
+    &:active {
+      color: $textColor !important;
+    }
   }
 }
 </style>
