@@ -19,7 +19,7 @@ const REGIONS = [
 export default class RiotClient {
   public static Regions = REGIONS
 
-  async getClient(apiKeyOverride: string = '') {
+  private async getClient(apiKeyOverride: string = '') {
     if (!apiKeyOverride) {
       const apiKeyRef = admin.database().ref('riot-api-key')
       const snapshot = await apiKeyRef.get()
