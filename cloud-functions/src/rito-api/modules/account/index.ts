@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import { User } from '../../../../../firestore/types'
-import { getRiotClient, PlatformId } from '../../lib/getRiotClient'
+import RiotClient from '../../lib/RiotClient'
 const admin = require('firebase-admin')
 
 const router = Router()
+const riotClient = new RiotClient()
 
 router.put('/me', async (req: any, res, next) => {
   try {
@@ -11,17 +12,11 @@ router.put('/me', async (req: any, res, next) => {
     const update: User = req.body
 
     if (update.summonerId) {
-      const riotClient = await getRiotClient()
-      const summoner = await riotClient.summoner.getBySummonerName({
-        region: PlatformId.EUW1,
-        summonerName: update.summonerId,
-      })
-      console.log('summoner: ', summoner)
-      const summonerIdExists = true
-      if (!summonerIdExists)
-        throw new Error(
-          `Could not find a summoner with name: ${update.summonerId}`
-        )
+      // throws a 404 if summoner doesn't exist
+      await riotClient.getSummoner(
+        RiotClient.PlatformId.EUW1,
+        update.summonerId
+      )
     }
 
     const userRef = admin.firestore().collection('users').doc(uid)
