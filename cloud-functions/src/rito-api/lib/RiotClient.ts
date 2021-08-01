@@ -4,7 +4,7 @@ const admin = require('firebase-admin')
 export default class RiotClient {
   public static PlatformId = PlatformId
 
-  private async getClient(apiKeyOverride: string) {
+  async getClient(apiKeyOverride: string = '') {
     if (!apiKeyOverride) {
       const apiKeyRef = admin.database().ref('riot-api-key')
       const snapshot = await apiKeyRef.get()
@@ -14,9 +14,16 @@ export default class RiotClient {
     return new RiotAPI(apiKeyOverride)
   }
 
-  async getSummoner(region: string, summonerName: string) {
+  async getSummoner(region: string, summonerName: string, apiKeyOverride: string = '') {
     const regionCode = RiotClient.PlatformId[region.toUpperCase()]
-    const client = await this.getClient()
+    if (!apiKeyOverride) {
+      const client = await this.getClient()
+      return client.summoner.getBySummonerName({
+        region: regionCode,
+        summonerName,
+      })
+    }
+    const client = await this.getClient(apiKeyOverride)
     return client.summoner.getBySummonerName({
       region: regionCode,
       summonerName,
