@@ -98,6 +98,7 @@ export default Vue.extend({
         region: this.editedRegion,
       }
       await (this as any).updateUser({ update })
+      alert('User updated!')
       this.isSubmitting = false
     },
     async fetchData() {
