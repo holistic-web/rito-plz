@@ -11,9 +11,9 @@
         text="Account"
         right
       >
-        <b-dropdown-item>
-          <nuxt-link to="/profile">Profile</nuxt-link>
-        </b-dropdown-item>
+        <nuxt-link to="/profile">
+          <b-dropdown-item> Profile </b-dropdown-item>
+        </nuxt-link>
         <b-dropdown-item @click="onSignOutClick">Sign Out</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
@@ -55,6 +55,8 @@ $textColor: white;
 
   &__nav a {
     color: $textColor !important;
+    display: flex;
+    width: 100%;
   }
 
   .dropdown-item,
