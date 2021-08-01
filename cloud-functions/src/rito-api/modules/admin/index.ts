@@ -1,6 +1,6 @@
 import { Router } from 'express'
-const admin = require('firebase-admin')
 import RiotClient from '../../lib/RiotClient'
+const admin = require('firebase-admin')
 
 const router = Router()
 const riotClient = new RiotClient()
@@ -11,6 +11,7 @@ router.put('/riot-api-key', async (req: any, res, next) => {
     try {
       await riotClient.getSummoner('EUW1', 'Bic Boi Yang', apiKey)
     } catch (err) {
+      console.error(err)
       throw err
       // TODO: don't throw 404 errors as API key still OK
     }
