@@ -53,10 +53,18 @@ $textColor: white;
     color: $textColor !important;
   }
 
-  &__nav a {
-    color: $textColor !important;
-    display: flex;
-    width: 100%;
+  &__nav {
+    a {
+      color: $textColor !important;
+    }
+
+    .dropdown-menu {
+      a li {
+        display: flex;
+        width: 100%;
+        text-decoration: none !important;
+      }
+    }
   }
 
   .dropdown-item,
