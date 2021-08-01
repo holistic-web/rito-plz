@@ -6,11 +6,19 @@
       <b-alert :show="accountNeedsSetup" variant="danger">
         You need to associate a Summoner account
       </b-alert>
-      <b-form-input
-        v-model="editedSummonerId"
-        class="Profile__summonerInput"
-        placeholder="Enter your Summoner name"
-      />
+      <section class="Profile__sumonnerInput">
+        <b-form-input
+          v-model="editedSummonerId"
+          class="Profile__summonerInput"
+          placeholder="Enter your Summoner name"
+        />
+        <b-form-radio-group
+          v-model="selected"
+          :options="options"
+          :aria-describedby="ariaDescribedby"
+          name="radio-inline"
+        ></b-form-radio-group>
+      </section>
       <b-btn
         variant="primary"
         :disabled="isSubmitting"
