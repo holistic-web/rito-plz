@@ -14,8 +14,16 @@ export default class RiotClient {
     return new RiotAPI(apiKeyOverride)
   }
 
-  async getSummoner({ region: string, summonerName: string, apiKey: string }) {
-    const client = await this.getClient(apiKey)
-    return client.summoner.getBySummonerName({ region, summonerName })
+  async getSummoner(region: string, summonerName: string) {
+    const regionCode = RiotClient.PlatformId[region.toUpperCase()]
+    const client = await this.getClient()
+    return client.summoner.getBySummonerName({
+      region: regionCode,
+      summonerName,
+    })
+  }
+
+  async getServers() {
+    return RiotClient.PlatformId
   }
 }
