@@ -83,7 +83,7 @@ export const actions: ActionTree<RootState, RootState> = {
       if (err.message === 'Request failed with status code 403')
         return dispatch('admin/invalidateApiKey', null, { root: true })
       alert(err)
-      return
+      throw err
     }
     await dispatch('fetchUser', { id: getters.user.uid })
     return result
