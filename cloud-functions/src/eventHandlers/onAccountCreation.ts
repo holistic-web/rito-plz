@@ -9,6 +9,7 @@ const onAccountCreation = async (user: any, event: any) => {
   const userRecord: User = {
     email: email,
     summonerId: '',
+    region: '',
   }
   await usersCollection.doc(uid).set(userRecord)
 }

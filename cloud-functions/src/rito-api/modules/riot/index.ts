@@ -2,11 +2,10 @@ import { Router } from 'express'
 import RiotClient from '../../lib/RiotClient'
 
 const router = Router()
-const riotClient = new RiotClient()
 
-router.get('/servers', async (req: any, res, next) => {
+router.get('/servers', (req: any, res, next) => {
   try {
-    const servers = await riotClient.getServers()
+    const servers = RiotClient.Regions
     res.json(servers)
   } catch (err) {
     next(err)

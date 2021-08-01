@@ -60,6 +60,7 @@ export const actions: ActionTree<RootState, RootState> = {
       const user = {
         email: userRecord.email,
         summonerId: userRecord.summonerId,
+        region: userRecord.region,
         uid: userRecord.uid,
       }
       commit('SET_USER', { ...user, uid: id })
