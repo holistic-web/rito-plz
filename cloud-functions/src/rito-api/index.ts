@@ -21,6 +21,7 @@ main.use(validateFirebaseIdToken)
 // configure api route controllers
 main.use('/account', routes.AccountController)
 main.use('/admin', routes.AdminController)
+main.use('/matches', routes.MatchesController)
 main.use('/rito', routes.RitoController)
 
 // configure error handling
